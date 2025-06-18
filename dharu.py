@@ -58,25 +58,31 @@ else:
     tabs = st.tabs(["💬 Chat & Quotes", "🕰️ Memory Timeline"])
 
     # Chat + Quotes tab
-    with tabs[0]:
-        col1, col2 = st.columns(2)
+        st.subheader(❤️ Chat Box")
 
-        with col1:
-            st.subheader("❤️ Chat Box")
-            msg = st.text_input("Type your message")
-            if st.button("Send"):
-                st.session_state.messages.append((st.session_state.username, msg))
+        msg = st.text_input("Type your message")
+        if st.button("Send"):
+            receiver = "Dharu" if st.session_state.username == "Honey" else "Honey"
+            st.session_state.messages.append({
+                "sender": st.session_state.username,
+                "receiver": receiver,
+                "text": msg
+            })
 
-            for sender, message in st.session_state.messages[-10:]:
-                st.markdown(f"**{sender}**: {message}")
+        # Display messages between the two
+        for chat in st.session_state.messages:
+            if (chat["sender"] == st.session_state.username and chat["receiver"] != st.session_state.username) or \
+               (chat["receiver"] == st.session_state.username and chat["sender"] != st.session_state.username):
+                st.markdown(f"**{chat['sender']}** ➤ {chat['text']}")
+
 
         with col2:
             st.subheader("📖 Lovely / Funny Quotes")
             st.markdown("""
-            - *"I love you more than pizza 🍕"*
+            - *"I love you more than curd rice 🍕"*
             - *"You're my favorite notification 🥰"*
             - *"Together is my favorite place to be 💑"*
-            - *"You're the peanut to my butter 🥜"*
+            - *"You're the jam to my bread 🥜"*
             """)
 
     # Memory Timeline tab
