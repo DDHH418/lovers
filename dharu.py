@@ -58,6 +58,11 @@ else:
     tabs = st.tabs(["💬 Chat & Quotes", "🕰️ Memory Timeline"])
 
     # Chat + Quotes tab
+    with tabs[0]:
+        col1, col2 = st.columns(2)
+
+        with col1:
+
         st.subheader(❤️ Chat Box")
 
         msg = st.text_input("Type your message")
